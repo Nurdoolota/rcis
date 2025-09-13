@@ -1,13 +1,14 @@
 package com.spring;
 
-import com.spring.entity.TV;
-import com.spring.service.TVService;
+import java.util.Scanner;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Scanner;
+import com.spring.entity.TV;
+import com.spring.service.TVService;
 
 @SpringBootApplication
 public class TVStoreApplication {
@@ -24,11 +25,11 @@ public class TVStoreApplication {
 
             while (running) {
                 System.out.println("\nМеню:");
-                System.out.println("1. Добавить книгу");
-                System.out.println("2. Вывести все книги");
-                System.out.println("3. Редактировать книгу по ID");
-                System.out.println("4. Удалить книгу по ID");
-                System.out.println("5. Поиск книг с ценой выше указанной");
+                System.out.println("1. Добавить телевизор");
+                System.out.println("2. Вывести все телевизоры");
+                System.out.println("3. Редактировать телевизор по ID");
+                System.out.println("4. Удалить телевизор по ID");
+                System.out.println("5. Поиск телевизора с ценой выше указанной");
                 System.out.println("6. Выход");
 
                 int choice = getIntInput(scanner, "Выберите опцию: ");
@@ -91,7 +92,6 @@ public class TVStoreApplication {
         Double price = scanner.nextDouble();
         System.out.print("Количество: ");
         Integer quantity = scanner.nextInt();
-        // ... (добавь для остальных полей)
         TV updated = new TV(manufacturer, model, screenType, price, quantity);
         service.updateTV(id, updated);
         System.out.println("Телевизор обновлен");
