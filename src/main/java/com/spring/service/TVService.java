@@ -18,7 +18,6 @@ public class TVService {
     }
 
     public TV addTV(TV TV) {
-        // Валидация (можно добавить больше)
         if (TV.getPrice() <= 0) throw new IllegalArgumentException("Цена должна быть >0");
         return repository.save(TV);
     }
