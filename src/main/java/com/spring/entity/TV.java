@@ -35,14 +35,12 @@ public class TV {
         this.quantity = quantity;
     }
 
-    // Геттеры и сеттеры (как раньше)
 
     @Override
     public String toString() {
         return "id=" + id + ", производитель='" + manufacturer + "', модель='" + model + "', тип экрана='" + screenType + "', цена=" + price + ", количество=" + quantity;
     }
 
-    // equals() и hashCode() (сгенерируй в IDE для полей)
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
