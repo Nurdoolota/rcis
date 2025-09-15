@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Результаты поиска</title>
+</head>
+<body>
+<h1>Результаты поиска для цены выше <span th:text="${price}"></span></h1>
+<div th:if="${tvs.isEmpty()}">Телевизоры не найдены</div>
+<table border="1" th:unless="${tvs.isEmpty()}">
+    <tr>
+        <th>ID</th>
+        <th>Производитель</th>
+        <th>Модель</th>
+        <th>Тип экрана</th>
+        <th>Цена</th>
+        <th>Количество</th>
+    </tr>
+    <tr th:each="tv : ${tvs}">
+        <td th:text="${tv.id}"></td>
+        <td th:text="${tv.manufacturer}"></td>
+        <td th:text="${tv.model}"></td>
+        <td th:text="${tv.screenType}"></td>
+        <td th:text="${tv.price}"></td>
+        <td th:text="${tv.quantity}"></td>
+    </tr>
+</table>
+<a th:href="@{/tvs/search}">Новый поиск</a> | <a th:href="@{/tvs}">Назад на главную</a>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Главная</title>
+</head>
+<body>
+<h1>Добро пожаловать в магазин телевизоров!</h1>
+<ul>
+    <li><a th:href="@{/tvs/list}">Просмотреть все телевизоры</a></li>
+    <li><a th:href="@{/tvs/add}">Добавить телевизор</a></li>
+    <li><a th:href="@{/tvs/search}">Поиск телевизоров по цене</a></li>
+</ul>
+</body>
+</html>

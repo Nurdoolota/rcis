@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список телевизоров</title>
+</head>
+<body>
+<h1>Список телевизоров</h1>
+<div th:if="${success}" style="color: green;" th:text="${success}"></div>
+<div th:if="${error}" style="color: red;" th:text="${error}"></div>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Производитель</th>
+        <th>Модель</th>
+        <th>Тип экрана</th>
+        <th>Цена</th>
+        <th>Количество</th>
+        <th>Действия</th>
+    </tr>
+    <tr th:each="tv : ${tvs}">
+        <td th:text="${tv.id}"></td>
+        <td th:text="${tv.manufacturer}"></td>
+        <td th:text="${tv.model}"></td>
+        <td th:text="${tv.screenType}"></td>
+        <td th:text="${tv.price}"></td>
+        <td th:text="${tv.quantity}"></td>
+        <td>
+            <a th:href="@{/tvs/edit/{id}(id=${tv.id})}">Редактировать</a> |
+            <a th:href="@{/tvs/delete/{id}(id=${tv.id})}" onclick="return confirm('Удалить телевизор?')">Удалить</a>
+        </td>
+    </tr>
+</table>
+<a th:href="@{/tvs}">Назад на главную</a>
+</body>
+</html>
