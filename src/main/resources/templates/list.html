@@ -1,12 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Список телевизоров</title>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    <p>Привет, <span th:text="${#authentication.name}"></span>!</p>
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Выйти</button>
+    </form>
+</div>
 <h1>Список телевизоров</h1>
-<div th:if="${success}" style="color: green;" th:text="${success}"></div>
-<div th:if="${error}" style="color: red;" th:text="${error}"></div>
+<div sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/tvs/add}">Добавить телевизор</a>
+</div>
 <table border="1">
     <tr>
         <th>ID</th>
