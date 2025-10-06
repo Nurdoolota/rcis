@@ -1,20 +1,42 @@
 package com.spring.controller;
 
+import com.spring.entity.TV;
+import com.spring.service.TVService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 
 @Controller
 public class TVController {
 
     private final TVService tvService;
+    private final JmsTemplate jmsTemplate;
+
 
     @Autowired
-    public TVController(TVService tvService) {
+    public TVController(TVService tvService, JmsTemplate jmsTemplate) {
         this.tvService = tvService;
+        this.jmsTemplate = jmsTemplate;
+    }
+
+    @PostMapping("/tvs/buy/{id}")
+    public String buyTV(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+        try {
+            TV tv = tvService.getTVById(id).orElseThrow(() -> new IllegalArgumentException("Телевизор не найден"));
+            jmsTemplate.convertAndSend("adminQueue", "Пользователь хочет купить телевизор ID: " + id + ", модель: " + tv.getModel());
+            redirectAttributes.addFlashAttribute("success", "Запрос на покупку отправлен администратору!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Ошибка покупки: " + e.getMessage());
+        }
+        return "redirect:/tvs/list";
     }
 
     // Главная страница

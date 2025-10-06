@@ -5,8 +5,6 @@
 </head>
 <body>
 <h1>Список телевизоров</h1>
-<div th:if="${success}" style="color: green;" th:text="${success}"></div>
-<div th:if="${error}" style="color: red;" th:text="${error}"></div>
 <table border="1">
     <tr>
         <th>ID</th>
@@ -26,10 +24,13 @@
         <td th:text="${tv.quantity}"></td>
         <td>
             <a th:href="@{/tvs/edit/{id}(id=${tv.id})}">Редактировать</a> |
-            <a th:href="@{/tvs/delete/{id}(id=${tv.id})}" onclick="return confirm('Удалить телевизор?')">Удалить</a>
+            <a th:href="@{/tvs/delete/{id}(id=${tv.id})}" onclick="return confirm('Удалить?')">Удалить</a> |
+            <form th:action="@{/tvs/buy/{id}(id=${tv.id})}" method="post" style="display: inline;">
+                <button type="submit">Купить</button>
+            </form>
         </td>
     </tr>
 </table>
-<a th:href="@{/tvs}">Назад на главную</a>
+<a th:href="@{/tvs/add}">Добавить телевизор</a>
 </body>
 </html>

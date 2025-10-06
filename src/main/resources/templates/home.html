@@ -1,9 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Главная</title>
 </head>
 <body>
+<div sec:authorize="isAuthenticated()">
+    <p>Привет, <span sec:authentication="name"></span>!</p>
+    <!-- Форма logout с проверкой CSRF -->
+    <form th:action="@{/logout}" method="post" th:if="${_csrf != null}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit">Выйти</button>
+    </form>
+    <!-- Fallback-ссылка, если CSRF-токен null -->
+    <a th:href="@{/logout}" th:if="${_csrf == null}">Выйти</a>
+</div>
 <h1>Добро пожаловать в магазин телевизоров!</h1>
 <ul>
     <li><a th:href="@{/tvs/list}">Просмотреть все телевизоры</a></li>
